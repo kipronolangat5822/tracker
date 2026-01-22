@@ -1,7 +1,5 @@
 ﻿using api.Models;
 using api.Services;
-using api.Models;
-using api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Endpoints
@@ -35,6 +33,7 @@ namespace api.Endpoints
                 var deleted = await userService.DeleteUserAsync(id);
                 return deleted ? Results.Ok("User Deleted") : Results.NotFound("User Not Found");
             });
+            group.WithOpenApi().WithTags("Users");
         }
     }
 }

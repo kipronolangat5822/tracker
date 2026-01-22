@@ -1,7 +1,5 @@
 ﻿using api.Models;
 using Microsoft.AspNetCore.Identity;
-using api.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 
