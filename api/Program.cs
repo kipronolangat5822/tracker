@@ -25,6 +25,18 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<DarajaService>();
 builder.Services.AddScoped<InventoryService>();
+builder.Services.AddScoped<NotificationService>();
+
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -40,6 +52,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Use CORS
+app.UseCors("AllowReactApp");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -47,6 +63,7 @@ app.MapGet("/health", () => "App is running").WithName("Health").WithOpenApi();
 app.MapUserEndpoints();
 app.MapDarajaEndpoints();
 app.MapInventoryEndpoints();
+app.MapNotificationEndpoints();
 
 app.Run();
 
